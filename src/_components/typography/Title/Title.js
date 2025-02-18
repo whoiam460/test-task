@@ -2,13 +2,13 @@ import clsx from "clsx";
 
 const styles = {
   levels: {
-    1: "text-[48px] leading-[4rem]",
-    2: "text-[40px] leading-[3.25rem]",
-    3: "text-[32px] leading-[2.75rem]",
-    4: "text-[24px] leading-8",
+    1: "text-[40px] md:text-[48px] md:leading-[4rem]",
+    2: "text-[32px] md:text-[40px] md:leading-[3.25rem]",
+    3: "text-[24px] md:text-[32px] md:leading-[2.75rem]",
+    4: "text-[20px] md:text-[24px] md:leading-8",
   },
   variants: {
-    black: "!text-black",
+    black: "text-black",
     white: "text-white",
   },
   weights: {

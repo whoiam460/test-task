@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
-import { fetchUserRepositories, fetchUserData } from "@/_modules/User/api";
+import { fetchUserData, fetchUserRepositories } from "@/_modules/User/api";
+import { useEffect, useState } from "react";
+
 import { fetchLanguagesForRepositories } from "@/_modules/User/helpers";
 
 const useUserData = (username) => {
@@ -11,21 +12,22 @@ const useUserData = (username) => {
 
   useEffect(() => {
     if (!username) return;
+
     setLoading(true);
     setError(false);
 
     const fetchData = async () => {
       try {
-        const [user, reposData] = await Promise.all([
-          fetchUserData(username),
-          fetchUserRepositories(username),
-        ]);
+        const user = await fetchUserData(username);
+        if (!user) return;
 
         setUserData(user);
 
+        const reposData = await fetchUserRepositories(username);
         const sortedRepos = reposData
           .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
           .slice(0, 10);
+
         setRepos(sortedRepos);
 
         const languageCount = await fetchLanguagesForRepositories(sortedRepos);
@@ -35,14 +37,12 @@ const useUserData = (username) => {
           0
         );
 
-        const languagePercentages = Object.entries(languageCount).map(
-          ([language, value]) => ({
+        setLanguageData(
+          Object.entries(languageCount).map(([language, value]) => ({
             language,
             percentage: (value / totalLanguages) * 100,
-          })
+          }))
         );
-
-        setLanguageData(languagePercentages);
       } catch (err) {
         console.error(err);
         setError(true);
@@ -53,7 +53,6 @@ const useUserData = (username) => {
 
     fetchData();
   }, [username]);
-
   return { userData, repos, languageData, loading, error };
 };
 

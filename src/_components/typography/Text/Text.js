@@ -2,10 +2,10 @@ import clsx from "clsx";
 
 const styles = {
   levels: {
-    1: "text-[20px] leading-7",
-    2: "text-[18px] leading-6",
-    3: "text-[16px] leading-6",
-    4: "text-[14px] leading-5",
+    1: "text-[16px] md:text-[20px] leading-7",
+    2: "text-[14px] md:text-[18px] leading-6",
+    3: "text-[12px] md:text-[16px] leading-6",
+    4: "text-[10px] md:text-[14px] leading-5",
   },
   variants: {
     black: "text-black",

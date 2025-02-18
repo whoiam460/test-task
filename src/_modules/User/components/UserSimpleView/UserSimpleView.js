@@ -1,5 +1,6 @@
+import { Card, Text, Title } from "@/_components";
+
 import Image from "next/image";
-import { Title, Text } from "@/_components";
 import clsx from "clsx";
 
 const UserSimpleView = ({
@@ -9,26 +10,37 @@ const UserSimpleView = ({
   imageUrl,
   className,
 }) => {
-  const joinSince = new Date(joinInDate).getFullYear();
+  const joinInYear = new Date(joinInDate).getFullYear();
 
-  const wrapperClasses = clsx("flex p-4 bg-white rounded-xl", className);
+  const wrapperClasses = clsx(
+    "flex flex-col justify-center items-center",
+    className
+  );
   return (
-    <div className={wrapperClasses}>
+    <Card className={wrapperClasses}>
       <Image
-        objectFit="contain"
-        className="w-full h-full mr-4 overflow-hidden rounded-full"
-        width={180}
-        height={180}
         alt="User avatar"
         src={imageUrl}
+        objectFit="cover"
+        width={180}
+        height={180}
+        className="mb-4 rounded-full"
       />
 
-      <div className="flex flex-col gap-y-2">
-        <Title level={2}>{name}</Title>
-        <Text>Public repositories: {publicRepos}</Text>
-        <Text>Member since: {joinSince}</Text>
+      <div className="flex flex-col items-center justify-center gap-y-2">
+        <Title level={3}>{name}</Title>
+        <div className="flex items-center justify-center gap-1">
+          <Text level={2}>
+            Public repositories: <b>{publicRepos}</b>
+          </Text>
+        </div>
+        <div className="flex gap-1">
+          <Text level={2}>
+            Since: <b>{joinInYear}</b>
+          </Text>
+        </div>
       </div>
-    </div>
+    </Card>
   );
 };
 

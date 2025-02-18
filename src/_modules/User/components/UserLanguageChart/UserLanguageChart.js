@@ -1,44 +1,43 @@
+import { ArcElement, Chart as ChartJS, Legend, Tooltip } from "chart.js";
+
+import { Card } from "@/_components";
 import { Pie } from "react-chartjs-2";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import clsx from "clsx";
-import { Title } from "@/_components";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const LanguageChart = ({ languageData, className }) => {
-  const wrapperClasses = clsx("p-4 w-auto bg-white rounded-xl", className);
+  const wrapperClasses = clsx("flex justify-center", className);
+
+  const colors = [
+    "#FF6384",
+    "#36A2EB",
+    "#FFCE56",
+    "#4BC0C0",
+    "#9966FF",
+    "#FF9F40",
+  ];
+
+  const labels = languageData.map(({ language }) => language);
+  const languagesPercent = languageData.map(({ percentage }) =>
+    percentage.toFixed(2)
+  );
+
   const data = {
-    labels: languageData.map(({ language }) => language),
+    labels: labels,
     datasets: [
       {
-        data: languageData.map(({ percentage }) => percentage),
-        backgroundColor: [
-          "#FF6384",
-          "#36A2EB",
-          "#FFCE56",
-          "#4BC0C0",
-          "#9966FF",
-          "#FF9F40",
-        ],
-        hoverBackgroundColor: [
-          "#FF6384",
-          "#36A2EB",
-          "#FFCE56",
-          "#4BC0C0",
-          "#9966FF",
-          "#FF9F40",
-        ],
+        data: languagesPercent,
+        backgroundColor: colors,
+        hoverBackgroundColor: colors,
       },
     ],
   };
 
   return (
-    <div className={wrapperClasses}>
-      {/* <Title level={3}>Використовувані мови програмування:</Title> */}
-      {/* <div style={{ width: "60%", height: "300px" }}> */}
+    <Card className={wrapperClasses}>
       <Pie data={data} />
-      {/* </div> */}
-    </div>
+    </Card>
   );
 };
 

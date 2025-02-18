@@ -1,7 +1,8 @@
 "use client";
 
-import { Text, Title, List } from "@/_components";
-import { UserSimpleView, LanguageChart } from "@/_modules/User/components";
+import { Container, List, Title, Text } from "@/_components";
+import { LanguageChart, UserSimpleView } from "@/_modules/User/components";
+
 import { RepositorySimpleView } from "@/_modules/Repository/components";
 import { useParams } from "next/navigation";
 import { useUserData } from "@/_modules/User/hooks";
@@ -12,17 +13,19 @@ const UserPage = () => {
   const { userData, repos, languageData, loading, error } =
     useUserData(username);
 
-  if (loading) return <div className="mt-10 text-center">Loading...</div>;
-  if (error)
-    return <div className="mt-10 text-center text-red-500">User not found</div>;
+  if (loading || userData === null)
+    return (
+      <div className="flex items-center justify-center w-screen h-screen">
+        <Text>{loading ? "Loading..." : "User not found"}</Text>
+      </div>
+    );
 
   const onClick = (item) => window.open(item?.html_url);
 
   return (
-    <div className="p-10 mx-auto ">
-      <div className="flex w-full mb-8">
+    <Container>
+      <div className="flex flex-col w-full gap-8 mb-8 md:flex-row">
         <UserSimpleView
-          className="mr-8"
           joinInDate={userData.created_at}
           publicRepos={userData.public_repos}
           imageUrl={userData?.avatar_url}
@@ -37,7 +40,7 @@ const UserPage = () => {
       <List onClick={onClick} items={repos}>
         <RepositorySimpleView />
       </List>
-    </div>
+    </Container>
   );
 };
 
