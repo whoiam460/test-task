@@ -8,7 +8,7 @@ const styles = {
     4: "text-[24px] leading-8",
   },
   variants: {
-    black: "text-black",
+    black: "!text-black",
     white: "text-white",
   },
   weights: {

@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { forwardRef } from "react";
 
 const inputStyles = {
-  base: "text-[16px] leading-[24px] font-normal p-3 rounded-xl w-full focus:outline-none bg-secondary-lighten-1 border solid border-secondary-lighten-1 focus:border-secondary-darken-1 ",
+  base: "text-[16px] leading-[24px] text-black font-normal p-3 rounded-xl w-full focus:outline-none bg-secondary-lighten-1 border solid border-secondary-lighten-1 focus:border-secondary-darken-1 ",
 };
 
 const wrapperStyles = {
